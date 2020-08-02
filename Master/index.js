@@ -300,6 +300,8 @@ async function addRole() {
     value: id
   }));
 
+  await console.log(departmentChoices);
+
   const role = await prompt([
     {
       name: "title",
