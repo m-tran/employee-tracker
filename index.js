@@ -58,10 +58,26 @@ function loadPrompts() {
     });
 }
 
-async function viewEmployees () {
+async function viewEmployees() {
     const employees = await orm.findAllEmployees();
 
     console.table(employees);
+
+    loadPrompts();
+}
+
+async function viewDepartments() {
+    const departments = await orm.findAllDepartments();
+
+    console.table(departments);
+
+    loadPrompts();
+}
+
+async function viewRoles() {
+    const roles = await orm.findAllRoles();
+
+    console.table(roles);
 
     loadPrompts();
 }
