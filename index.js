@@ -51,5 +51,5 @@ inquirer.prompt(choices, (answers) => {
 });
 
 const viewDepartments = () => {
-    
+
 }
