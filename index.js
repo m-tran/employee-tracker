@@ -35,6 +35,10 @@ const choices = [{
             name: "Update an employee's role",
             value: "updateEmployeeRole",
         },
+        {
+            name: "Quit Tracker",
+            value: "quit",
+        }
 
     ],
 }];
@@ -45,16 +49,18 @@ function loadPrompts() {
     inquirer
     .prompt(choices)
     .then((answers) => {
-
         const choice = answers.choice;
-
+        return choice;
+    })
+    .then((choice) => {
         return (choice == "viewDepartments") ? viewDepartments()
-            : (choice == "viewRoles") ? viewRoles()
-            : (choice == "viewEmployees") ? viewEmployees()
-            : (choice == "addDepartment") ? addDepartment()
-            : (choice == "addRole") ? addRole()
-            : (choice == "addEmployee") ? addEmployee()
-            : updateEmployeeRole();
+                : (choice == "viewRoles") ? viewRoles()
+                : (choice == "viewEmployees") ? viewEmployees()
+                : (choice == "addDepartment") ? addDepartment()
+                : (choice == "addRole") ? addRole()
+                : (choice == "addEmployee") ? addEmployee()
+                : (choice == "updateEmployeeRole()") ? updateEmployeeRole()
+                : quit();
     });
 }
 
@@ -80,4 +86,8 @@ async function viewRoles() {
     console.table(roles);
 
     loadPrompts();
+}
+
+async function quit() {
+    process.exit();
 }
