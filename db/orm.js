@@ -22,7 +22,7 @@ const orm = {
     return connection.query("INSERT INTO role SET ?", newRole);
   },
   updateRole: function(id, title) {
-    return connection.query("UPDATE employee SET role_id = ? WHERE id = ?", (title, id));
+    return connection.query("UPDATE employee SET role_id = ? WHERE id = ?", [title, id]);
   }
 }
 

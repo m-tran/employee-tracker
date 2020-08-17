@@ -148,8 +148,11 @@ async function addDepartment() {
     }])
     .then(async (answer) => {
         console.log(answer.department);
-        const department = await orm.addADepartment(answer.department);
-        console.table(department);
+        const department = await orm.addADepartment({name: answer.department});
+        
+        const departments = await orm.findAllDepartments();
+        console.table(departments);
+    
         loadPrompts();
     });
 }
@@ -220,7 +223,7 @@ async function updateEmployeeRole() {
     ])
     .then(async (answer) => {
         console.log(employees);
-        const role = await orm.updateRole({id: answer.employee, title: answer.title});
+        const role = await orm.updateRole(answer.employee, answer.title);
         console.table(role);
         loadPrompts();
     });
