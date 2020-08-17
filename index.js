@@ -124,6 +124,8 @@ async function addEmployee() {
         }
     ];
 
+    console.log(employees);
+
     inquirer
     .prompt(employee)
     .then(async (answers) => {
