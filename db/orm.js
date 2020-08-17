@@ -11,7 +11,10 @@ const orm = {
   },
   findAllRoles: function() {
     return connection.query("SELECT * FROM role");
-  }
+  },
+  addAnEmployee: function(newEmployee) {
+    return connection.query("INSERT INTO employee (first_name, last_name, role_id, manager_id) VALUES ?", (newEmployee));
+  },
 }
 
 module.exports = orm;
