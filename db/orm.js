@@ -18,6 +18,12 @@ const orm = {
   addADepartment: function(newDepartment) {
     return connection.query("INSERT INTO department SET ?", newDepartment);
   },
+  addARole: function(newRole) {
+    return connection.query("INSERT INTO role SET ?", newRole);
+  },
+  updateRole: function(id, title) {
+    return connection.query("UPDATE employee SET role_id = ? WHERE id = ?", (title, id));
+  }
 }
 
 module.exports = orm;

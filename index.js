@@ -57,7 +57,7 @@ function loadPrompts() {
                 : (choice == "addDepartment") ? addDepartment()
                 : (choice == "addRole") ? addRole()
                 : (choice == "addEmployee") ? addEmployee()
-                : (choice == "updateEmployeeRole()") ? updateEmployeeRole()
+                : (choice == "updateEmployeeRole") ? updateEmployeeRole()
                 : quit();
     });
 }
@@ -148,6 +148,78 @@ async function addDepartment() {
         console.log(answer.department);
         const department = await orm.addADepartment(answer.department);
         console.table(department);
+        loadPrompts();
+    });
+}
+
+async function addRole() {
+    const department = await orm.findAllDepartments();
+
+    const departmentChoices = department.map(({ id, name }) => ({
+        name: name,
+        value: id
+    }));
+
+    inquirer
+    .prompt([
+        {
+            type: "input",
+            name: "role",
+            message: "What is the name of the new role?",
+        },
+        {
+            type: "input",
+            name: "salary",
+            message: "What is the annual salary?",
+        },
+        {
+            type: "list",
+            name: "department",
+            message: "What department does it belong to?",
+            choices: departmentChoices,
+        }
+    ])
+    .then(async (answer) => {
+        const role = await orm.addARole({title: answer.role, salary: answer.salary, department_id: answer.department});
+        console.table(role);
+        loadPrompts();
+    });
+}
+
+async function updateEmployeeRole() {
+    const employees = await orm.findAllEmployees();
+
+    const roles = await orm.findAllRoles();
+
+    const employeeChoices = employees.map(({ id, first_name, last_name }) => ({
+        name: `${first_name} ${last_name}`,
+        value: id
+    }));
+
+    const roleChoices = roles.map(({ id, title }) => ({
+        name: title,
+        value: id
+    }));
+
+    inquirer
+    .prompt([
+        {
+            type: "list",
+            name: "employee",
+            message: "Who would you like to update?",
+            choices: employeeChoices,
+        },
+        {
+            type: "list", 
+            name: "title",
+            message: "What's their role?",
+            choices: roleChoices,
+        },
+    ])
+    .then(async (answer) => {
+        console.log(employees);
+        const role = await orm.updateRole({id: answer.employee, title: answer.title});
+        console.table(role);
         loadPrompts();
     });
 }
