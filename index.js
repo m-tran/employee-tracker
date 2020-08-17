@@ -130,9 +130,24 @@ async function addEmployee() {
 
         console.table(employees);
 
-        const allEmployees = await orm.addAnEmployee(`${answers.first}`, answers.last, answers.title, answers.manager);
+        const addEmployee = await orm.addAnEmployee({first_name: answers.first, last_name: answers.last, role_id: answers.title, manager_id: answers.manager});
 
-        console.table(allEmployees);
+        console.table(addEmployee);
+        loadPrompts();
+    });
+}
+
+async function addDepartment() {
+    inquirer
+    .prompt([{
+        type: "input",
+        name: "department",
+        message: "What is the name of the new department?",
+    }])
+    .then(async (answer) => {
+        console.log(answer.department);
+        const department = await orm.addADepartment(answer.department);
+        console.table(department);
         loadPrompts();
     });
 }

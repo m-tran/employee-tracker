@@ -13,7 +13,10 @@ const orm = {
     return connection.query("SELECT * FROM role");
   },
   addAnEmployee: function(newEmployee) {
-    return connection.query("INSERT INTO employee (first_name, last_name, role_id, manager_id) VALUES ?", (newEmployee));
+    return connection.query("INSERT INTO employee SET ?", newEmployee);
+  },
+  addADepartment: function(newDepartment) {
+    return connection.query("INSERT INTO department SET ?", newDepartment);
   },
 }
 
